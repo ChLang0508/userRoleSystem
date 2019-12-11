@@ -96,6 +96,8 @@
                     <exclude>application-localhost.properties</exclude>
                     <exclude>application-develop.properties</exclude>
                     <exclude>application-product.properties</exclude>
+                    <exclude>sql/**</exclude>
+                    <exclude>generator/**</exclude>
                 </excludes>
             </resource>
             <resource>
@@ -105,7 +107,9 @@
                     <include>application.properties</include>
                     <include>application-${env}.properties</include>
                 </includes>
+
             </resource>
+
         </resources>
         <plugins>
             <plugin>

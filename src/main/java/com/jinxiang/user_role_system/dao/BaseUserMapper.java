@@ -1,7 +1,9 @@
 package com.jinxiang.user_role_system.dao;
 
 import com.jinxiang.user_role_system.pojo.BaseUser;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface BaseUserMapper {
     int deleteByPrimaryKey(Long id);
 

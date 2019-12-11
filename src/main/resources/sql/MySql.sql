@@ -33,7 +33,7 @@ CREATE TABLE `base_menu`
 	`deep` INT NOT NULL DEFAULT 1 COMMENT '菜单深度',
 	`status` INT NOT NULL DEFAULT 0 COMMENT '状态（0--正常，1--停用）',
 	`is_end_node` INT NOT NULL DEFAULT 1 COMMENT '是否叶子节点（1--是，0不是）',
-	`menu_url` NVARCHAR(200) NOT NULL DEFAULT / COMMENT '菜单url',
+	`menu_url` NVARCHAR(200) NOT NULL DEFAULT '/' COMMENT '菜单url',
 	`creater` BIGINT NULL COMMENT '创建人',
 	`create_time` DATETIME NULL COMMENT '创建时间',
 	`update_user` BIGINT NULL COMMENT '修改人',

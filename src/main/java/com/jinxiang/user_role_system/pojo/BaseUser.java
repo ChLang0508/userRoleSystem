@@ -1,8 +1,12 @@
 package com.jinxiang.user_role_system.pojo;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 import java.util.Date;
 
-public class BaseUser {
+public class BaseUser implements UserDetails {
     private Long id;
 
     private String code;
@@ -181,5 +185,40 @@ public class BaseUser {
 
     public void setIs_admin(Integer is_admin) {
         this.is_admin = is_admin;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return user_password;
+    }
+
+    @Override
+    public String getUsername() {
+        return user_name;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 }

@@ -7,6 +7,10 @@ public class BaseRoleMenu {
 
     private Long role_id;
 
+    private String roleName;
+
+    private String menuUrl;
+
     private Long menu_id;
 
     private Long creater;
@@ -51,5 +55,21 @@ public class BaseRoleMenu {
 
     public void setCreate_time(Date create_time) {
         this.create_time = create_time;
+    }
+
+    public String getMenuUrl() {
+        return menuUrl;
+    }
+
+    public void setMenuUrl(String menuUrl) {
+        this.menuUrl = menuUrl;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }

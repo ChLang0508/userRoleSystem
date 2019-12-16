@@ -1,8 +1,10 @@
 package com.jinxiang.user_role_system.pojo;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import java.util.Date;
 
-public class BaseRole {
+public class BaseRole implements GrantedAuthority {
     private Long ord;
 
     private String code;
@@ -91,5 +93,10 @@ public class BaseRole {
 
     public void setUpdate_user(Long update_user) {
         this.update_user = update_user;
+    }
+
+    @Override
+    public String getAuthority() {
+        return role_name;
     }
 }

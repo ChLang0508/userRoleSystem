@@ -1,10 +1,14 @@
 package com.jinxiang.user_role_system.pojo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
 
 public class BaseUser implements UserDetails {
     private Long id;
@@ -42,6 +46,8 @@ public class BaseUser implements UserDetails {
     private String lock_ip2;
 
     private Integer is_admin;
+
+    private List<BaseRole> roleList;
 
     public Long getId() {
         return id;
@@ -187,38 +193,56 @@ public class BaseUser implements UserDetails {
         this.is_admin = is_admin;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    public List<BaseRole> getRoleList() {
+        return roleList;
     }
 
+    public void setRoleList(List<BaseRole> roleList) {
+        this.roleList = roleList;
+    }
+
+    @JSONField(serialize = false)
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roleList;
+    }
+
+    @JSONField(serialize = false)
     @Override
     public String getPassword() {
         return user_password;
     }
 
+    @JSONField(serialize = false)
     @Override
     public String getUsername() {
         return user_name;
     }
 
+    @JSONField(serialize = false)
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
+    @JSONField(serialize = false)
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
+    @JSONField(serialize = false)
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
+    @JSONField(serialize = false)
     @Override
     public boolean isEnabled() {
+        if (status != null) {
+            return status == 1;
+        }
         return false;
     }
 }

@@ -1,7 +1,5 @@
 package com.jinxiang.user_role_system.controller;
 
-
-import com.jinxiang.user_role_system.pojo.BaseUser;
 import com.jinxiang.user_role_system.pojo.ResponseEntity;
 import com.jinxiang.user_role_system.services.BaseUserServices;
 import org.springframework.beans.factory.annotation.Autowired;

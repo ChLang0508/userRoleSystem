@@ -1,4 +1,4 @@
-package com.jinxiang.user_role_system.config;
+package com.jinxiang.user_role_system.security;
 
 /**
  * Created by chLang on 2019/11/16
@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 //配置不拦截的url
                 .authorizeRequests()
-                .antMatchers("/noLogin", "/login")
+                .antMatchers("/noLogin", "/login","/successLogout")
                 .permitAll()
                 .accessDecisionManager(accessDecisionManager())
                 //自定义拦截的URL的数据源，实现从数据库获取角色权限动态拦截url，而不是在这个类中配置
@@ -77,7 +77,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
 
-
                 .and()
                 //登录配置
                 .formLogin()
@@ -91,6 +90,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureForwardUrl("/filedLogin")
                 .successForwardUrl("/successLogin")
 //                .permitAll()
+                .and()
+                .logout()
+//                .logoutUrl("")
+                .logoutSuccessUrl("/successLogout")
+//                .logoutSuccessHandler()
                 .and()
                 .exceptionHandling()
                 //自定义未登录的处理，而不是跳转到默认登录页面

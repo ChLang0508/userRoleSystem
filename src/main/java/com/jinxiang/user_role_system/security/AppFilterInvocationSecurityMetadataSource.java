@@ -1,4 +1,4 @@
-package com.jinxiang.user_role_system.config;
+package com.jinxiang.user_role_system.security;
 
 
 /**

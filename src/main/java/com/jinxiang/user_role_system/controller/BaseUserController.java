@@ -29,9 +29,15 @@ public class BaseUserController {
     public ResponseEntity filedLogin() {
         return new ResponseEntity(401,false,"登录失败",null);
     }
+
     @RequestMapping("/successLogin")
     public ResponseEntity successLogin() {
-        return new ResponseEntity(401,false,"登录成功",null);
+        return new ResponseEntity(200,false,"登录成功",null);
+    }
+
+    @RequestMapping("/successLogout")
+    public ResponseEntity successLogout() {
+        return new ResponseEntity(200,false,"退出登录成功",null);
     }
 
 

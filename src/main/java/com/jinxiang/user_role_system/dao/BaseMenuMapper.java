@@ -1,7 +1,9 @@
 package com.jinxiang.user_role_system.dao;
 
 import com.jinxiang.user_role_system.pojo.BaseMenu;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface BaseMenuMapper {
     int deleteByPrimaryKey(Long ord);
 

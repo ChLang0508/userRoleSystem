@@ -1,9 +1,10 @@
 package com.jinxiang.user_role_system.security;
 
 /**
- * Created by chLang on 2019/11/16
+ * Created by chLang on 2019/12/16
  */
 
+import com.jinxiang.user_role_system.security.customerFiter.OptionsRequestFilter;
 import com.jinxiang.user_role_system.services.BaseRoleMenuService;
 import com.jinxiang.user_role_system.services.BaseUserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.header.Header;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
+import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,8 +64,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 //配置不拦截的url
                 .authorizeRequests()
-                .antMatchers("/noLogin", "/login","/successLogout")
+                .antMatchers("/noLogin", "/login", "/successLogout")
                 .permitAll()
+
+                //自定义投票器
                 .accessDecisionManager(accessDecisionManager())
                 //自定义拦截的URL的数据源，实现从数据库获取角色权限动态拦截url，而不是在这个类中配置
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
@@ -78,30 +84,44 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
 
                 .and()
+                //关闭session支持
+                .sessionManagement().disable()
                 //登录配置
-                .formLogin()
-                //用户名和密码参数名
-                .usernameParameter("userName")
-                .passwordParameter("password")
-                //登录处理URL
-                .loginProcessingUrl("/login")
-                //登录页面，默认情况下未登录会跳转到这个url
-                .loginPage("/noLogin")
-                .failureForwardUrl("/filedLogin")
-                .successForwardUrl("/successLogin")
+                //关闭默认的form登录
+                .formLogin().disable()
+//                //用户名和密码参数名
+//                .usernameParameter("userName")
+//                .passwordParameter("password")
+//                //登录处理URL
+//                .loginProcessingUrl("/login")
+//                //登录页面，默认情况下未登录会跳转到这个url
+//                .loginPage("/noLogin")
+//                .failureForwardUrl("/failedLogin")
+//                .successForwardUrl("/successLogin")
 //                .permitAll()
-                .and()
+//                .and()
                 .logout()
 //                .logoutUrl("")
                 .logoutSuccessUrl("/successLogout")
 //                .logoutSuccessHandler()
                 .and()
-                .exceptionHandling()
+                //rememberMe配置
+                .rememberMe()
+                .and()
+//                .exceptionHandling()
                 //自定义未登录的处理，而不是跳转到默认登录页面
 //                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-                .and()
-                //防止跨站伪造请求（跨域）
-                .csrf().disable();
+//                .and()
+                //防止跨站伪造请求
+                .csrf().disable()
+                //支持跨域
+                .cors()
+                .and()   //添加header设置，支持跨域和ajax请求
+                .headers().addHeaderWriter(new StaticHeadersWriter(Arrays.asList(
+                        new Header("Access-control-Allow-Origin","*"),
+                        new Header("Access-Control-Expose-Headers","Authorization"))))
+                .and() //拦截OPTIONS请求，直接返回header
+                .addFilterAfter(new OptionsRequestFilter(), CorsFilter.class);
     }
 
 //    @Autowired
@@ -134,6 +154,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 自定义多个投票器，以及投票方式
+     *
      * @return
      */
     @Bean

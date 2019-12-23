@@ -2,7 +2,7 @@ package com.jinxiang.user_role_system.security;
 
 
 /**
- * Created by chLang on 2019/11/16
+ * Created by chLang on 2019/12/16
  */
 
 import com.jinxiang.user_role_system.services.BaseRoleMenuService;

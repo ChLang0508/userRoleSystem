@@ -12,7 +12,10 @@ public interface BaseUserMapper {
     int insertSelective(BaseUser record);
 
     BaseUser selectByPrimaryKey(Long id);
+
     BaseUser selectByName(String name);
+
+    BaseUser selectByCode(String code);
 
     int updateByPrimaryKeySelective(BaseUser record);
 

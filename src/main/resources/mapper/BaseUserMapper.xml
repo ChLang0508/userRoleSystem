@@ -38,6 +38,13 @@
     from base_usr
     where user_name = #{user_name,jdbcType=VARCHAR}
   </select>
+
+  <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from base_usr
+    where code = #{code,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from base_usr
     where id = #{id,jdbcType=BIGINT}

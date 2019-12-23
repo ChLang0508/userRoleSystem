@@ -8,4 +8,8 @@ public interface BaseUserServices extends UserDetailsService {
 
     BaseUser selectUserByName(String name);
 
+    BaseUser selectUserByCode(String code);
+
+    Boolean updateBySelective(BaseUser baseUser);
+
 }

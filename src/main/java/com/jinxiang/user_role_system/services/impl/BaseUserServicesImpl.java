@@ -30,11 +30,22 @@ public class BaseUserServicesImpl implements BaseUserServices {
     }
 
     @Override
+    public BaseUser selectUserByCode(String code) {
+        return baseUserMapper.selectByCode(code);
+    }
+
+    @Override
+    public Boolean updateBySelective(BaseUser baseUser) {
+        return baseUserMapper.updateByPrimaryKeySelective(baseUser) == 1;
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        BaseUser baseUser=baseUserMapper.selectByName(s);
-        List<BaseRole> roles=baseRoleMapper.selectByUserId(baseUser.getId());
+        BaseUser baseUser = baseUserMapper.selectByName(s);
+        List<BaseRole> roles = baseRoleMapper.selectByUserId(baseUser.getId());
         baseUser.setRoleList(roles);
         return baseUser;
     }
+
 
 }

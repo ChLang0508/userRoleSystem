@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface BaseUserServices extends UserDetailsService {
 
-    BaseUser selectUserByName(String name);
 
     BaseUser selectUserByCode(String code);
 

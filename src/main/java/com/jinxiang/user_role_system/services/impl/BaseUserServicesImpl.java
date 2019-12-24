@@ -24,14 +24,14 @@ public class BaseUserServicesImpl implements BaseUserServices {
     private BaseRoleMapper baseRoleMapper;
 
 
-    @Override
-    public BaseUser selectUserByName(String name) {
-        return baseUserMapper.selectByName(name);
-    }
+
 
     @Override
     public BaseUser selectUserByCode(String code) {
-        return baseUserMapper.selectByCode(code);
+        BaseUser baseUser = baseUserMapper.selectByCode(code);
+        List<BaseRole> roles = baseRoleMapper.selectByUserId(baseUser.getId());
+        baseUser.setRoleList(roles);
+        return baseUser;
     }
 
     @Override

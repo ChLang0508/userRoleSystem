@@ -25,12 +25,7 @@ public class AppFilterInvocationSecurityMetadataSource implements FilterInvocati
 
 
     private  Map<String,String> urlRoleMap;
-//    {{
-//        put("/open/**","ROLE_ANONYMOUS");
-//        put("/health","ROLE_ANONYMOUS");
-//        put("/restart","ROLE_ADMIN");
-//        put("/demo","ROLE_USER");
-//    }};
+
 
     @Override
     public Collection<ConfigAttribute> getAllConfigAttributes() {

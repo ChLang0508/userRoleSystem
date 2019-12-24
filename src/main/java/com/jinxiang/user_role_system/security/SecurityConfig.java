@@ -4,6 +4,7 @@ package com.jinxiang.user_role_system.security;
  * Created by chLang on 2019/12/16
  */
 
+import com.jinxiang.user_role_system.security.customerFiter.CustomerUsernamePasswordAuthenticationFilter;
 import com.jinxiang.user_role_system.security.customerFiter.OptionsRequestFilter;
 import com.jinxiang.user_role_system.services.BaseRoleMenuService;
 import com.jinxiang.user_role_system.services.BaseUserServices;
@@ -20,14 +21,21 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.header.Header;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.web.filter.CorsFilter;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,9 +51,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BaseRoleMenuService baseRoleMenuService;
 
+    @Autowired
+    private CustomerAuthenticationProvider authenticationProvider;
 
     @Autowired
     private BaseUserServices baseUserServices;
+
+//    @Autowired
+//    private CustomerUsernamePasswordAuthenticationFilter customerUsernamePasswordAuthenticationFilter;
 
     /**
      * 密码编码方式
@@ -86,24 +99,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 //关闭session支持
                 .sessionManagement().disable()
+                //替换过滤器
+                .addFilterAt(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 //登录配置
                 //关闭默认的form登录
-                .formLogin().disable()
-//                //用户名和密码参数名
-//                .usernameParameter("userName")
-//                .passwordParameter("password")
-//                //登录处理URL
-//                .loginProcessingUrl("/login")
-//                //登录页面，默认情况下未登录会跳转到这个url
-//                .loginPage("/noLogin")
-//                .failureForwardUrl("/failedLogin")
-//                .successForwardUrl("/successLogin")
-//                .permitAll()
-//                .and()
+                .formLogin()
+//                .disable()
+                //用户名和密码参数名
+                .usernameParameter("userName")
+                .passwordParameter("password")
+                //登录处理URL
+                .loginProcessingUrl("/login")
+                //登录页面，默认情况下未登录会跳转到这个url
+                .loginPage("/noLogin")
+
+                .permitAll()
+                .and()
                 .logout()
-//                .logoutUrl("")
+
                 .logoutSuccessUrl("/successLogout")
-//                .logoutSuccessHandler()
+                .logoutSuccessHandler(new CustomerLogoutSuccessHandler())
                 .and()
                 //rememberMe配置
                 .rememberMe()
@@ -118,16 +133,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()   //添加header设置，支持跨域和ajax请求
                 .headers().addHeaderWriter(new StaticHeadersWriter(Arrays.asList(
-                        new Header("Access-control-Allow-Origin","*"),
-                        new Header("Access-Control-Expose-Headers","Authorization"))))
-                .and() //拦截OPTIONS请求，直接返回header
+                new Header("Access-control-Allow-Origin", "*"),
+                new Header("Access-Control-Expose-Headers", "Authorization"))))
+                .and()
+                //拦截OPTIONS请求，直接返回header
                 .addFilterAfter(new OptionsRequestFilter(), CorsFilter.class);
     }
-
-//    @Autowired
-//    public void myConfig(AuthenticationManagerBuilder auth) {
-//        auth.authenticationProvider(dbProvider);
-//    }
 
     /**
      * 配置用户数据来源，可来自内存，数据库等
@@ -136,8 +147,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * @throws Exception
      */
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(baseUserServices).passwordEncoder(passwordEncoder());
-//        auth.inMemoryAuthentication().withUser("cl").password("{noop}cl").roles("user");
+        auth.authenticationProvider(authenticationProvider)
+                .userDetailsService(baseUserServices).passwordEncoder(passwordEncoder());
     }
 
     /**
@@ -169,6 +180,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //一票通过（可选一票通过（全部弃权也通过），一票否决，少数服从多数）
         return new UnanimousBased(decisionVoters);
     }
+
+    @Bean
+    CustomerUsernamePasswordAuthenticationFilter customAuthenticationFilter() throws Exception {
+        CustomerUsernamePasswordAuthenticationFilter filter = new CustomerUsernamePasswordAuthenticationFilter();
+        filter.setAuthenticationSuccessHandler(new LoginSuccessHandler());
+        filter.setAuthenticationFailureHandler(new LoginFiledHandler());
+        filter.setFilterProcessesUrl("/login");
+
+        //重用WebSecurityConfigurerAdapter配置的AuthenticationManager，不再重新组装AuthenticationManager
+        filter.setAuthenticationManager(authenticationManagerBean());
+        return filter;
+    }
+
+//    @Bean
+//    CustomerAuthenticationProvider customerAuthenticationProvider(){
+//        return new CustomerAuthenticationProvider();
+//    }
 
 }
 

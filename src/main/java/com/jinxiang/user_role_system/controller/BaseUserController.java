@@ -41,14 +41,6 @@ public class BaseUserController {
     @Autowired
     RedisUtils redisUtils;
 
-    @Value("${jwt.signature.secretKey}")
-    private String SecretKey;
-
-    @Value("${jwt.signature.issuer}")
-    private String Issuer;
-
-    SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-
 
 //    @RequestMapping("/login")
 //    public ResponseEntity Login(String userName, String password, HttpServletRequest request) {

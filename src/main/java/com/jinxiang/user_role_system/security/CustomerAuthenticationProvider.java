@@ -28,6 +28,7 @@ public class CustomerAuthenticationProvider extends DaoAuthenticationProvider {
      */
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+        //TODO 认证逻辑
         super.additionalAuthenticationChecks(userDetails, authentication);
     }
 

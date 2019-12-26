@@ -15,17 +15,16 @@ import org.springframework.util.AntPathMatcher;
 import java.util.Collection;
 import java.util.Map;
 
+/**
+ * 加载role_menu列表，动态配置,有修改时应该要重新加载
+ */
 public class AppFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
-    private FilterInvocationSecurityMetadataSource  superMetadataSource;
+    private static FilterInvocationSecurityMetadataSource superMetadataSource;
 
     private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-
-
-
-    private  Map<String,String> urlRoleMap;
-
+    private static Map<String, String> urlRoleMap;
 
     @Override
     public Collection<ConfigAttribute> getAllConfigAttributes() {
@@ -33,50 +32,30 @@ public class AppFilterInvocationSecurityMetadataSource implements FilterInvocati
     }
 
     public AppFilterInvocationSecurityMetadataSource(FilterInvocationSecurityMetadataSource expressionBasedFilterInvocationSecurityMetadataSource,
-                                                     BaseRoleMenuService baseRoleMenuService){
-        this.superMetadataSource = expressionBasedFilterInvocationSecurityMetadataSource;
+                                                     BaseRoleMenuService baseRoleMenuService) {
+        superMetadataSource = expressionBasedFilterInvocationSecurityMetadataSource;
 
         // TODO 从数据库加载权限配置
 
-        urlRoleMap =baseRoleMenuService.findAll();
+        urlRoleMap = baseRoleMenuService.findAll();
     }
-
-
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         FilterInvocation fi = (FilterInvocation) object;
         String url = fi.getRequestUrl();
 
-        for(Map.Entry<String,String> entry:urlRoleMap.entrySet()){
-            if(antPathMatcher.match(entry.getKey(),url)){
+        for (Map.Entry<String, String> entry : urlRoleMap.entrySet()) {
+            if (antPathMatcher.match(entry.getKey(), url)) {
                 return SecurityConfig.createList(entry.getValue());
             }
         }
-
         //  返回代码定义的默认配置
         return superMetadataSource.getAttributes(object);
     }
-
-
 
     @Override
     public boolean supports(Class<?> clazz) {
         return FilterInvocation.class.isAssignableFrom(clazz);
     }
 }
-
-//    @Override
-//    public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
-//        return null;
-//    }
-//
-//    @Override
-//    public Collection<ConfigAttribute> getAllConfigAttributes() {
-//        return null;
-//    }
-//
-//    @Override
-//    public boolean supports(Class<?> aClass) {
-//        return false;
-//    }

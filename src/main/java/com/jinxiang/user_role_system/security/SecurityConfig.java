@@ -5,6 +5,7 @@ package com.jinxiang.user_role_system.security;
  */
 
 import com.jinxiang.user_role_system.security.customerFiter.CustomerUsernamePasswordAuthenticationFilter;
+import com.jinxiang.user_role_system.security.customerFiter.JWTAuthenticationFilter;
 import com.jinxiang.user_role_system.security.customerFiter.OptionsRequestFilter;
 import com.jinxiang.user_role_system.services.BaseRoleMenuService;
 import com.jinxiang.user_role_system.services.BaseUserServices;
@@ -21,6 +22,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
@@ -28,14 +30,12 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.security.web.header.Header;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.web.filter.CorsFilter;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,7 +47,6 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     @Autowired
     private BaseRoleMenuService baseRoleMenuService;
 
@@ -57,8 +56,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BaseUserServices baseUserServices;
 
-//    @Autowired
-//    private CustomerUsernamePasswordAuthenticationFilter customerUsernamePasswordAuthenticationFilter;
+    @Autowired
+    private JWTAuthenticationFilter jwtAuthenticationFilter;
+
+    @Autowired
+    private LoginSuccessHandler loginSuccessHandler;
+
+    @Autowired
+    private  CustomerLogoutSuccessHandler logoutSuccessHandler;
 
     /**
      * 密码编码方式
@@ -73,7 +78,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-//        String a = passwordEncoder().encode("cl");
         http
                 //配置不拦截的url
                 .authorizeRequests()
@@ -97,8 +101,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
 
                 .and()
-                //关闭session支持
-                .sessionManagement().disable()
+                //关闭session支持,用disable关不掉
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.NEVER)
+                .and()
                 //替换过滤器
                 .addFilterAt(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 //登录配置
@@ -118,7 +124,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
 
                 .logoutSuccessUrl("/successLogout")
-                .logoutSuccessHandler(new CustomerLogoutSuccessHandler())
+                .logoutSuccessHandler(logoutSuccessHandler)
                 .and()
                 //rememberMe配置
                 .rememberMe()
@@ -137,7 +143,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 new Header("Access-Control-Expose-Headers", "Authorization"))))
                 .and()
                 //拦截OPTIONS请求，直接返回header
-                .addFilterAfter(new OptionsRequestFilter(), CorsFilter.class);
+                .addFilterAfter(new OptionsRequestFilter(), CorsFilter.class)
+                .addFilterAfter(jwtAuthenticationFilter, SecurityContextPersistenceFilter.class);
+
     }
 
     /**
@@ -181,22 +189,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new UnanimousBased(decisionVoters);
     }
 
+
+    /**
+     * 注册自定义的过滤器
+     *
+     * @return
+     * @throws Exception
+     */
     @Bean
     CustomerUsernamePasswordAuthenticationFilter customAuthenticationFilter() throws Exception {
         CustomerUsernamePasswordAuthenticationFilter filter = new CustomerUsernamePasswordAuthenticationFilter();
-        filter.setAuthenticationSuccessHandler(new LoginSuccessHandler());
+        filter.setAuthenticationSuccessHandler(loginSuccessHandler);
         filter.setAuthenticationFailureHandler(new LoginFiledHandler());
         filter.setFilterProcessesUrl("/login");
+        filter.setSessionAuthenticationStrategy(new NullAuthenticatedSessionStrategy());
 
         //重用WebSecurityConfigurerAdapter配置的AuthenticationManager，不再重新组装AuthenticationManager
         filter.setAuthenticationManager(authenticationManagerBean());
         return filter;
     }
-
-//    @Bean
-//    CustomerAuthenticationProvider customerAuthenticationProvider(){
-//        return new CustomerAuthenticationProvider();
-//    }
 
 }
 

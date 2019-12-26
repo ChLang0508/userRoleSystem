@@ -7,7 +7,7 @@ public class ResponseEntity<T> {
 
     private int code;
 
-    private Boolean issuccess;
+    private Boolean isSuccess;
 
     private String message;
 
@@ -15,10 +15,10 @@ public class ResponseEntity<T> {
 
     public ResponseEntity(){}
 
-    public ResponseEntity(int Code, Boolean Issuccess, String message, T result) {
-        this.code = Code;
+    public ResponseEntity(int code, Boolean isSuccess, String message, T result) {
+        this.code = code;
         this.message = message;
-        this.issuccess = Issuccess;
+        this.isSuccess = isSuccess;
         this.result = result;
     }
 
@@ -30,12 +30,12 @@ public class ResponseEntity<T> {
         this.code = code;
     }
 
-    public Boolean getIssuccess() {
-        return issuccess;
+    public Boolean getIsSuccess() {
+        return isSuccess;
     }
 
-    public void setIssuccess(Boolean issuccess) {
-        this.issuccess = issuccess;
+    public void setIsSuccess(Boolean isSuccess) {
+        this.isSuccess = isSuccess;
     }
 
     public String getMessage() {

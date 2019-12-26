@@ -7,6 +7,10 @@ package com.jinxiang.user_role_system.security;
 import com.jinxiang.user_role_system.security.customerFiter.CustomerUsernamePasswordAuthenticationFilter;
 import com.jinxiang.user_role_system.security.customerFiter.JWTAuthenticationFilter;
 import com.jinxiang.user_role_system.security.customerFiter.OptionsRequestFilter;
+import com.jinxiang.user_role_system.security.handler.CustomerLogoutSuccessHandler;
+import com.jinxiang.user_role_system.security.handler.LoginFiledHandler;
+import com.jinxiang.user_role_system.security.handler.LoginSuccessHandler;
+import com.jinxiang.user_role_system.security.provider.CustomerAuthenticationProvider;
 import com.jinxiang.user_role_system.services.BaseRoleMenuService;
 import com.jinxiang.user_role_system.services.BaseUserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +27,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
 import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.security.web.header.Header;
@@ -63,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private LoginSuccessHandler loginSuccessHandler;
 
     @Autowired
-    private  CustomerLogoutSuccessHandler logoutSuccessHandler;
+    private CustomerLogoutSuccessHandler logoutSuccessHandler;
 
     /**
      * 密码编码方式

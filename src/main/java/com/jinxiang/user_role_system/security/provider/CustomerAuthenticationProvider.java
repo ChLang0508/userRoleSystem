@@ -1,4 +1,4 @@
-package com.jinxiang.user_role_system.security;
+package com.jinxiang.user_role_system.security.provider;
 
 
 import com.jinxiang.user_role_system.services.BaseUserServices;

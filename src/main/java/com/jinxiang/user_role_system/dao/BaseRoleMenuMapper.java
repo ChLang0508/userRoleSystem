@@ -1,6 +1,10 @@
 package com.jinxiang.user_role_system.dao;
 
+import com.jinxiang.user_role_system.pojo.BaseMenu;
+import com.jinxiang.user_role_system.pojo.BaseRole;
 import com.jinxiang.user_role_system.pojo.BaseRoleMenu;
+import com.jinxiang.user_role_system.tool.Pager;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,4 +24,8 @@ public interface BaseRoleMenuMapper {
     int updateByPrimaryKey(BaseRoleMenu record);
 
     List<BaseRoleMenu> findAll();
+
+    List<BaseMenu> selectList(@Param("record") BaseRoleMenu record, @Param("pager") Pager pager);
+
+    int selectListCount(@Param("record") BaseRoleMenu record);
 }

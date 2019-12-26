@@ -1,29 +1,27 @@
 package com.jinxiang.user_role_system.services.impl;
 
-import com.jinxiang.user_role_system.dao.BaseMenuMapper;
 import com.jinxiang.user_role_system.dao.BaseRoleMapper;
 import com.jinxiang.user_role_system.dao.BaseUserMapper;
-import com.jinxiang.user_role_system.pojo.BaseMenu;
 import com.jinxiang.user_role_system.pojo.BaseRole;
 import com.jinxiang.user_role_system.pojo.BaseUser;
 import com.jinxiang.user_role_system.services.BaseUserServices;
+import com.jinxiang.user_role_system.tool.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class BaseUserServicesImpl implements BaseUserServices {
 
     @Autowired
     private BaseUserMapper baseUserMapper;
     @Autowired
     private BaseRoleMapper baseRoleMapper;
-
-
 
 
     @Override
@@ -37,6 +35,30 @@ public class BaseUserServicesImpl implements BaseUserServices {
     @Override
     public Boolean updateBySelective(BaseUser baseUser) {
         return baseUserMapper.updateByPrimaryKeySelective(baseUser) == 1;
+    }
+
+    @Override
+    public Boolean insertUser(BaseUser baseUser) {
+        //TODO 数据验证逻辑
+
+        return baseUserMapper.insertSelective(baseUser)==1;
+    }
+
+    @Override
+    public BaseUser getUserByPK(Long userID) {
+        return baseUserMapper.selectByPrimaryKey(userID);
+    }
+
+    @Override
+    public Boolean delUser(Long userID) {
+        //TODO 删除验证逻辑，是否允许删除
+
+        return baseUserMapper.deleteByPrimaryKey(userID) == 1;
+    }
+
+    @Override
+    public Pager getUserList(BaseUser user, Pager pager) {
+        return null;
     }
 
     @Override

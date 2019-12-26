@@ -1,4 +1,4 @@
-package com.jinxiang.user_role_system.security;
+package com.jinxiang.user_role_system.security.handler;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jinxiang.user_role_system.pojo.ResponseEntity;

@@ -1,10 +1,11 @@
-package com.jinxiang.user_role_system.security;
+package com.jinxiang.user_role_system.security.handler;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jinxiang.user_role_system.pojo.ResponseEntity;
 import com.jinxiang.user_role_system.redis.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -45,7 +46,7 @@ public class CustomerLogoutSuccessHandler implements LogoutSuccessHandler {
             }
         }
         redisUtils.del(token);
-
+        SecurityContextHolder.clearContext();
         String resStr = jsonObject.toJSONString();
         response.getWriter().write(resStr);
     }

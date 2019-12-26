@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.jinxiang.user_role_system.dao.BaseRoleMapper" >
-  <resultMap id="BaseResultMap" type="com.jinxiang.user_role_system.pojo.BaseRole" >
-    <id column="ord" property="ord" jdbcType="BIGINT" />
-    <result column="code" property="code" jdbcType="VARCHAR" />
-    <result column="role_name" property="role_name" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="sort" property="sort" jdbcType="INTEGER" />
-    <result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
-    <result column="create_user" property="create_user" jdbcType="BIGINT" />
-    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
-    <result column="update_user" property="update_user" jdbcType="BIGINT" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.jinxiang.user_role_system.dao.BaseRoleMapper">
+    <resultMap id="BaseResultMap" type="com.jinxiang.user_role_system.pojo.BaseRole">
+        <id column="ord" property="ord" jdbcType="BIGINT"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="role_name" property="role_name" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="sort" property="sort" jdbcType="INTEGER"/>
+        <result column="create_time" property="create_time" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="create_user" jdbcType="BIGINT"/>
+        <result column="update_time" property="update_time" jdbcType="TIMESTAMP"/>
+        <result column="update_user" property="update_user" jdbcType="BIGINT"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     ord, code, role_name, status, sort, create_time, create_user, update_time, update_user
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from base_role
-    where ord = #{ord,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from base_role
+        where ord = #{ord,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from base_role
     where ord = #{ord,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.jinxiang.user_role_system.pojo.BaseRole" >
+    <insert id="insert" parameterType="com.jinxiang.user_role_system.pojo.BaseRole">
     insert into base_role (ord, code, role_name, 
       status, sort, create_time, 
       create_user, update_time, update_user
@@ -35,98 +35,98 @@
       #{create_user,jdbcType=BIGINT}, #{update_time,jdbcType=TIMESTAMP}, #{update_user,jdbcType=BIGINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.jinxiang.user_role_system.pojo.BaseRole" >
-    insert into base_role
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="ord != null" >
-        ord,
-      </if>
-      <if test="code != null" >
-        code,
-      </if>
-      <if test="role_name != null" >
-        role_name,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="sort != null" >
-        sort,
-      </if>
-      <if test="create_time != null" >
-        create_time,
-      </if>
-      <if test="create_user != null" >
-        create_user,
-      </if>
-      <if test="update_time != null" >
-        update_time,
-      </if>
-      <if test="update_user != null" >
-        update_user,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="ord != null" >
-        #{ord,jdbcType=BIGINT},
-      </if>
-      <if test="code != null" >
-        #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="role_name != null" >
-        #{role_name,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="sort != null" >
-        #{sort,jdbcType=INTEGER},
-      </if>
-      <if test="create_time != null" >
-        #{create_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="create_user != null" >
-        #{create_user,jdbcType=BIGINT},
-      </if>
-      <if test="update_time != null" >
-        #{update_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="update_user != null" >
-        #{update_user,jdbcType=BIGINT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.jinxiang.user_role_system.pojo.BaseRole" >
-    update base_role
-    <set >
-      <if test="code != null" >
-        code = #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="role_name != null" >
-        role_name = #{role_name,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="sort != null" >
-        sort = #{sort,jdbcType=INTEGER},
-      </if>
-      <if test="create_time != null" >
-        create_time = #{create_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="create_user != null" >
-        create_user = #{create_user,jdbcType=BIGINT},
-      </if>
-      <if test="update_time != null" >
-        update_time = #{update_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="update_user != null" >
-        update_user = #{update_user,jdbcType=BIGINT},
-      </if>
-    </set>
-    where ord = #{ord,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.jinxiang.user_role_system.pojo.BaseRole" >
+    <insert id="insertSelective" parameterType="com.jinxiang.user_role_system.pojo.BaseRole">
+        insert into base_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ord != null">
+                ord,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="role_name != null">
+                role_name,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="create_time != null">
+                create_time,
+            </if>
+            <if test="create_user != null">
+                create_user,
+            </if>
+            <if test="update_time != null">
+                update_time,
+            </if>
+            <if test="update_user != null">
+                update_user,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ord != null">
+                #{ord,jdbcType=BIGINT},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="role_name != null">
+                #{role_name,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="create_time != null">
+                #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="create_user != null">
+                #{create_user,jdbcType=BIGINT},
+            </if>
+            <if test="update_time != null">
+                #{update_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="update_user != null">
+                #{update_user,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jinxiang.user_role_system.pojo.BaseRole">
+        update base_role
+        <set>
+            <if test="code != null">
+                code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="role_name != null">
+                role_name = #{role_name,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="create_time != null">
+                create_time = #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="create_user != null">
+                create_user = #{create_user,jdbcType=BIGINT},
+            </if>
+            <if test="update_time != null">
+                update_time = #{update_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="update_user != null">
+                update_user = #{update_user,jdbcType=BIGINT},
+            </if>
+        </set>
+        where ord = #{ord,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jinxiang.user_role_system.pojo.BaseRole">
     update base_role
     set code = #{code,jdbcType=VARCHAR},
       role_name = #{role_name,jdbcType=VARCHAR},
@@ -138,9 +138,24 @@
       update_user = #{update_user,jdbcType=BIGINT}
     where ord = #{ord,jdbcType=BIGINT}
   </update>
-  <select id="selectByUserId" resultMap="BaseResultMap">
+    <select id="selectByUserId" resultMap="BaseResultMap">
     select * from base_role
     inner join base_user_role bur on base_role.ord = bur.role_id
     where bur.user_id = #{userId,jdbcType=BIGINT}
+  </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+
+    </select>
+    <select id="selectListCount" resultType="java.lang.Integer">
+
+    </select>
+    <sql id="whereSql">
+
+    </sql>
+
+    <select id="selectByCode" resultMap="BaseResultMap">
+        select * from base_role
+        where code=#{code,jdbcType=VARCHAR}
   </select>
 </mapper>

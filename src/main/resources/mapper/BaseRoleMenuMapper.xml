@@ -99,4 +99,14 @@
     inner join base_role br on base_role_menu.role_id = br.ord
     inner join base_menu bm on base_role_menu.menu_id = bm.ord
   </select>
+
+  <select id="selectList" resultMap="BaseResultMap">
+
+  </select>
+  <select id="selectListCount" resultType="java.lang.Integer">
+
+  </select>
+  <sql id="whereSql">
+
+  </sql>
 </mapper>

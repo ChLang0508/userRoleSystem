@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.jinxiang.user_role_system.dao.BaseUserMapper" >
-  <resultMap id="BaseResultMap" type="com.jinxiang.user_role_system.pojo.BaseUser" >
+<mapper namespace="com.chlang.user_role_system.dao.BaseUserMapper" >
+  <resultMap id="BaseResultMap" type="com.chlang.user_role_system.entity.BaseUser" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="code" property="code" jdbcType="VARCHAR" />
     <result column="user_name" property="user_name" jdbcType="VARCHAR" />
@@ -49,7 +49,7 @@
     delete from base_usr
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.jinxiang.user_role_system.pojo.BaseUser" >
+  <insert id="insert" parameterType="com.chlang.user_role_system.entity.BaseUser" >
     insert into base_usr (id, code, user_name, 
       user_phone, user_email, user_password, 
       status, creater, create_time, 
@@ -65,7 +65,7 @@
       #{lock_ip1,jdbcType=VARCHAR}, #{lock_ip2,jdbcType=VARCHAR}, #{is_admin,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.jinxiang.user_role_system.pojo.BaseUser" >
+  <insert id="insertSelective" parameterType="com.chlang.user_role_system.entity.BaseUser" >
     insert into base_usr
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -180,7 +180,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.jinxiang.user_role_system.pojo.BaseUser" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.chlang.user_role_system.entity.BaseUser" >
     update base_usr
     <set >
       <if test="code != null" >
@@ -237,7 +237,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.jinxiang.user_role_system.pojo.BaseUser" >
+  <update id="updateByPrimaryKey" parameterType="com.chlang.user_role_system.entity.BaseUser" >
     update base_usr
     set code = #{code,jdbcType=VARCHAR},
       user_name = #{user_name,jdbcType=VARCHAR},

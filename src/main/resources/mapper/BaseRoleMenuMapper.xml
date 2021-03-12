@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.jinxiang.user_role_system.dao.BaseRoleMenuMapper" >
-  <resultMap id="BaseResultMap" type="com.jinxiang.user_role_system.pojo.BaseRoleMenu" >
+<mapper namespace="com.chlang.user_role_system.dao.BaseRoleMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.chlang.user_role_system.entity.BaseRoleMenu" >
     <id column="ord" property="ord" jdbcType="BIGINT" />
     <result column="role_id" property="role_id" jdbcType="BIGINT" />
     <result column="roleName" property="roleName" jdbcType="VARCHAR" />
@@ -23,13 +23,13 @@
     delete from base_role_menu
     where ord = #{ord,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.jinxiang.user_role_system.pojo.BaseRoleMenu" >
+  <insert id="insert" parameterType="com.chlang.user_role_system.entity.BaseRoleMenu" >
     insert into base_role_menu (ord, role_id, menu_id, 
       creater, create_time)
     values (#{ord,jdbcType=BIGINT}, #{role_id,jdbcType=BIGINT}, #{menu_id,jdbcType=BIGINT}, 
       #{creater,jdbcType=BIGINT}, #{create_time,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.jinxiang.user_role_system.pojo.BaseRoleMenu" >
+  <insert id="insertSelective" parameterType="com.chlang.user_role_system.entity.BaseRoleMenu" >
     insert into base_role_menu
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="ord != null" >
@@ -66,7 +66,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.jinxiang.user_role_system.pojo.BaseRoleMenu" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.chlang.user_role_system.entity.BaseRoleMenu" >
     update base_role_menu
     <set >
       <if test="role_id != null" >
@@ -84,7 +84,7 @@
     </set>
     where ord = #{ord,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.jinxiang.user_role_system.pojo.BaseRoleMenu" >
+  <update id="updateByPrimaryKey" parameterType="com.chlang.user_role_system.entity.BaseRoleMenu" >
     update base_role_menu
     set role_id = #{role_id,jdbcType=BIGINT},
       menu_id = #{menu_id,jdbcType=BIGINT},

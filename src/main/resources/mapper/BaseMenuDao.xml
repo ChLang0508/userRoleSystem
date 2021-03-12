@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chlang.user_role_system.dao.BaseMenuDao">
+
+    <resultMap type="com.chlang.user_role_system.entity.BaseMenu" id="BaseMenuMap">
+        <result property="ord" column="ord" jdbcType="INTEGER"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
+        <result property="menuName" column="menu_name" jdbcType="VARCHAR"/>
+        <result property="deep" column="deep" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="isEndNode" column="is_end_node" jdbcType="INTEGER"/>
+        <result property="menuUrl" column="menu_url" jdbcType="VARCHAR"/>
+        <result property="creater" column="creater" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="update_user" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseMenuMap">
+        select ord,
+               code,
+               menu_name,
+               deep,
+               status,
+               is_end_node,
+               menu_url,
+               creater,
+               create_time,
+               update_user,
+               update_time
+        from UserRoleSystem.base_menu
+        where ord = #{ord}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseMenuMap">
+        select ord,
+               code,
+               menu_name,
+               deep,
+               status,
+               is_end_node,
+               menu_url,
+               creater,
+               create_time,
+               update_user,
+               update_time
+        from UserRoleSystem.base_menu limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseMenuMap">
+        select
+        ord, code, menu_name, deep, status, is_end_node, menu_url, creater, create_time, update_user, update_time
+        from UserRoleSystem.base_menu
+        <where>
+            <if test="ord != null">
+                and ord = #{ord}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+            <if test="menuName != null and menuName != ''">
+                and menu_name = #{menuName}
+            </if>
+            <if test="deep != null">
+                and deep = #{deep}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="isEndNode != null">
+                and is_end_node = #{isEndNode}
+            </if>
+            <if test="menuUrl != null and menuUrl != ''">
+                and menu_url = #{menuUrl}
+            </if>
+            <if test="creater != null">
+                and creater = #{creater}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateUser != null">
+                and update_user = #{updateUser}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="ord" useGeneratedKeys="true">
+        insert into UserRoleSystem.base_menu(code, menu_name, deep, status, is_end_node, menu_url, creater, create_time,
+                                             update_user, update_time)
+        values (#{code}, #{menuName}, #{deep}, #{status}, #{isEndNode}, #{menuUrl}, #{creater}, #{createTime},
+                #{updateUser}, #{updateTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="ord" useGeneratedKeys="true">
+        insert into UserRoleSystem.base_menu(code, menu_name, deep, status, is_end_node, menu_url, creater, create_time,
+        update_user, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.code}, #{entity.menuName}, #{entity.deep}, #{entity.status}, #{entity.isEndNode},
+            #{entity.menuUrl}, #{entity.creater}, #{entity.createTime}, #{entity.updateUser}, #{entity.updateTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="ord" useGeneratedKeys="true">
+        insert into UserRoleSystem.base_menu(code, menu_name, deep, status, is_end_node, menu_url, creater, create_time,
+        update_user, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.code}, #{entity.menuName}, #{entity.deep}, #{entity.status}, #{entity.isEndNode},
+            #{entity.menuUrl}, #{entity.creater}, #{entity.createTime}, #{entity.updateUser}, #{entity.updateTime})
+        </foreach>
+        on duplicate key update
+        code = values(code) , menu_name = values(menu_name) , deep = values(deep) , status = values(status) ,
+        is_end_node = values(is_end_node) , menu_url = values(menu_url) , creater = values(creater) , create_time =
+        values(create_time) , update_user = values(update_user) , update_time = values(update_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update UserRoleSystem.base_menu
+        <set>
+            <if test="code != null and code != ''">
+                code = #{code},
+            </if>
+            <if test="menuName != null and menuName != ''">
+                menu_name = #{menuName},
+            </if>
+            <if test="deep != null">
+                deep = #{deep},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="isEndNode != null">
+                is_end_node = #{isEndNode},
+            </if>
+            <if test="menuUrl != null and menuUrl != ''">
+                menu_url = #{menuUrl},
+            </if>
+            <if test="creater != null">
+                creater = #{creater},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where ord = #{ord}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from UserRoleSystem.base_menu
+        where ord = #{ord}
+    </delete>
+
+</mapper>
+

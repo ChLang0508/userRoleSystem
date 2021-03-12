@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: @env@
+  ##出现同名的bean时，后定义的会覆盖之前定义的bean
+  main:
+    allow-bean-definition-overriding: true
+  output:
+    ansi:
+      enabled: always
+##根目录日志输出等级
+logging:
+  level:
+    root: info
+
+mybatis-plus:
+  config-location: classpath:mapper/*Mapper.xml

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.jinxiang.user_role_system.dao.BaseUserRoleMapper" >
-  <resultMap id="BaseResultMap" type="com.jinxiang.user_role_system.pojo.BaseUserRole" >
+<mapper namespace="com.chlang.user_role_system.dao.BaseUserRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.chlang.user_role_system.entity.BaseUserRole" >
     <id column="ord" property="ord" jdbcType="BIGINT" />
     <result column="user_id" property="user_id" jdbcType="BIGINT" />
     <result column="role_id" property="role_id" jdbcType="BIGINT" />
@@ -21,13 +21,13 @@
     delete from base_user_role
     where ord = #{ord,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.jinxiang.user_role_system.pojo.BaseUserRole" >
+  <insert id="insert" parameterType="com.chlang.user_role_system.entity.BaseUserRole" >
     insert into base_user_role (ord, user_id, role_id, 
       creater, create_time)
     values (#{ord,jdbcType=BIGINT}, #{user_id,jdbcType=BIGINT}, #{role_id,jdbcType=BIGINT}, 
       #{creater,jdbcType=BIGINT}, #{create_time,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.jinxiang.user_role_system.pojo.BaseUserRole" >
+  <insert id="insertSelective" parameterType="com.chlang.user_role_system.entity.BaseUserRole" >
     insert into base_user_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="ord != null" >
@@ -64,7 +64,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.jinxiang.user_role_system.pojo.BaseUserRole" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.chlang.user_role_system.entity.BaseUserRole" >
     update base_user_role
     <set >
       <if test="user_id != null" >
@@ -82,7 +82,7 @@
     </set>
     where ord = #{ord,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.jinxiang.user_role_system.pojo.BaseUserRole" >
+  <update id="updateByPrimaryKey" parameterType="com.chlang.user_role_system.entity.BaseUserRole" >
     update base_user_role
     set user_id = #{user_id,jdbcType=BIGINT},
       role_id = #{role_id,jdbcType=BIGINT},

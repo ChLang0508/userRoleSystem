@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.jinxiang.user_role_system.dao.BaseRoleMapper">
-    <resultMap id="BaseResultMap" type="com.jinxiang.user_role_system.pojo.BaseRole">
+<mapper namespace="com.chlang.user_role_system.dao.BaseRoleMapper">
+    <resultMap id="BaseResultMap" type="com.chlang.user_role_system.entity.BaseRole">
         <id column="ord" property="ord" jdbcType="BIGINT"/>
         <result column="code" property="code" jdbcType="VARCHAR"/>
         <result column="role_name" property="role_name" jdbcType="VARCHAR"/>
@@ -25,7 +25,7 @@
     delete from base_role
     where ord = #{ord,jdbcType=BIGINT}
   </delete>
-    <insert id="insert" parameterType="com.jinxiang.user_role_system.pojo.BaseRole">
+    <insert id="insert" parameterType="com.chlang.user_role_system.entity.BaseRole">
     insert into base_role (ord, code, role_name, 
       status, sort, create_time, 
       create_user, update_time, update_user
@@ -35,7 +35,7 @@
       #{create_user,jdbcType=BIGINT}, #{update_time,jdbcType=TIMESTAMP}, #{update_user,jdbcType=BIGINT}
       )
   </insert>
-    <insert id="insertSelective" parameterType="com.jinxiang.user_role_system.pojo.BaseRole">
+    <insert id="insertSelective" parameterType="com.chlang.user_role_system.entity.BaseRole">
         insert into base_role
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="ord != null">
@@ -96,7 +96,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.jinxiang.user_role_system.pojo.BaseRole">
+    <update id="updateByPrimaryKeySelective" parameterType="com.chlang.user_role_system.entity.BaseRole">
         update base_role
         <set>
             <if test="code != null">
@@ -126,7 +126,7 @@
         </set>
         where ord = #{ord,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.jinxiang.user_role_system.pojo.BaseRole">
+    <update id="updateByPrimaryKey" parameterType="com.chlang.user_role_system.entity.BaseRole">
     update base_role
     set code = #{code,jdbcType=VARCHAR},
       role_name = #{role_name,jdbcType=VARCHAR},

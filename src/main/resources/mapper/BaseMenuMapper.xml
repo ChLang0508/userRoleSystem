@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.jinxiang.user_role_system.dao.BaseMenuMapper" >
-  <resultMap id="BaseResultMap" type="com.jinxiang.user_role_system.pojo.BaseMenu" >
+<mapper namespace="com.chlang.user_role_system.dao.BaseMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.chlang.user_role_system.entity.BaseMenu" >
     <id column="ord" property="ord" jdbcType="BIGINT" />
     <result column="code" property="code" jdbcType="VARCHAR" />
     <result column="menu_name" property="menu_name" jdbcType="VARCHAR" />
@@ -28,7 +28,7 @@
     delete from base_menu
     where ord = #{ord,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.jinxiang.user_role_system.pojo.BaseMenu" >
+  <insert id="insert" parameterType="com.chlang.user_role_system.entity.BaseMenu" >
     insert into base_menu (ord, code, menu_name, 
       deep, status, is_end_node, 
       menu_url, creater, create_time, 
@@ -38,7 +38,7 @@
       #{menu_url,jdbcType=VARCHAR}, #{creater,jdbcType=BIGINT}, #{create_time,jdbcType=TIMESTAMP}, 
       #{update_user,jdbcType=BIGINT}, #{update_time,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.jinxiang.user_role_system.pojo.BaseMenu" >
+  <insert id="insertSelective" parameterType="com.chlang.user_role_system.entity.BaseMenu" >
     insert into base_menu
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="ord != null" >
@@ -111,7 +111,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.jinxiang.user_role_system.pojo.BaseMenu" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.chlang.user_role_system.entity.BaseMenu" >
     update base_menu
     <set >
       <if test="code != null" >
@@ -147,7 +147,7 @@
     </set>
     where ord = #{ord,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.jinxiang.user_role_system.pojo.BaseMenu" >
+  <update id="updateByPrimaryKey" parameterType="com.chlang.user_role_system.entity.BaseMenu" >
     update base_menu
     set code = #{code,jdbcType=VARCHAR},
       menu_name = #{menu_name,jdbcType=VARCHAR},

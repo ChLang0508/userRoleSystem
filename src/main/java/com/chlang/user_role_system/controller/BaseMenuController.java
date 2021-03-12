@@ -1,41 +1,35 @@
 package com.chlang.user_role_system.controller;
 
 import com.chlang.user_role_system.entity.BaseMenu;
-import com.chlang.user_role_system.entity.ResponseEntity;
 import com.chlang.user_role_system.service.BaseMenuService;
-import com.chlang.user_role_system.tool.Pager;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.annotation.Resource;
 
+/**
+ * 菜单表，存储菜单项和菜单url(BaseMenu)表控制层
+ *
+ * @author makejava
+ * @since 2021-03-12 18:20:40
+ */
 @RestController
-@RequestMapping(value = "/menu", method = RequestMethod.POST)
+@RequestMapping("baseMenu")
 public class BaseMenuController {
-
-    @Autowired
+    /**
+     * 服务对象
+     */
+    @Resource
     private BaseMenuService baseMenuService;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseEntity<?> addMenu(HttpServletRequest request, BaseMenu baseMenu) {
-        return null;
-    }
-
-    @RequestMapping(value = "/del", method = RequestMethod.POST)
-    public ResponseEntity<?> delMenu(HttpServletRequest request, Long userId) {
-        return null;
-    }
-
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ResponseEntity<?> updateMenu(HttpServletRequest request, BaseMenu baseMenu) {
-        return null;
-    }
-
-    @RequestMapping(value = "/get-list", method = RequestMethod.POST)
-    public ResponseEntity<?> getMenu(HttpServletRequest request, BaseMenu baseMenu, Pager pager) {
-        return null;
+    /**
+     * 通过主键查询单条数据
+     *
+     * @param id 主键
+     * @return 单条数据
+     */
+    @GetMapping("selectOne")
+    public BaseMenu selectOne(Long id) {
+        return this.baseMenuService.queryById(id);
     }
 
 }

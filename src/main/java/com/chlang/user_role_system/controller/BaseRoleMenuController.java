@@ -1,43 +1,35 @@
 package com.chlang.user_role_system.controller;
 
 import com.chlang.user_role_system.entity.BaseRoleMenu;
-import com.chlang.user_role_system.entity.ResponseEntity;
 import com.chlang.user_role_system.service.BaseRoleMenuService;
-import com.chlang.user_role_system.tool.Pager;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.annotation.Resource;
 
+/**
+ * 角色菜单表,这张表里有即为有权限(BaseRoleMenu)表控制层
+ *
+ * @author makejava
+ * @since 2021-03-12 18:25:43
+ */
 @RestController
-@RequestMapping(value = "/role-menu", method = RequestMethod.POST)
+@RequestMapping("baseRoleMenu")
 public class BaseRoleMenuController {
-
-    @Autowired
+    /**
+     * 服务对象
+     */
+    @Resource
     private BaseRoleMenuService baseRoleMenuService;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseEntity<?> addRoleMenu(HttpServletRequest request, BaseRoleMenu baseRoleMenu) {
-        return null;
-    }
-
-    @RequestMapping(value = "/del", method = RequestMethod.POST)
-    public ResponseEntity<?> delRoleMenu(HttpServletRequest request, Long ord) {
-        return null;
-    }
-
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ResponseEntity<?> updateRoleMenu(HttpServletRequest request, BaseRoleMenu baseRoleMenu) {
-        return null;
-    }
-
-    @RequestMapping(value = "/get-list", method = RequestMethod.POST)
-    public ResponseEntity<?> getRoleMenu(HttpServletRequest request,
-                                      BaseRoleMenu baseRoleMenu,
-                                      Pager pager) {
-        return null;
+    /**
+     * 通过主键查询单条数据
+     *
+     * @param id 主键
+     * @return 单条数据
+     */
+    @GetMapping("selectOne")
+    public BaseRoleMenu selectOne(Long id) {
+        return this.baseRoleMenuService.queryById(id);
     }
 
 }

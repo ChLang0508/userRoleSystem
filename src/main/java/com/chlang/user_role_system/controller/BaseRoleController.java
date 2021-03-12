@@ -1,67 +1,35 @@
 package com.chlang.user_role_system.controller;
 
 import com.chlang.user_role_system.entity.BaseRole;
-import com.chlang.user_role_system.entity.ResponseEntity;
-import com.chlang.user_role_system.security.SecurityTool;
 import com.chlang.user_role_system.service.BaseRoleService;
-import com.chlang.user_role_system.tool.Pager;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
+import javax.annotation.Resource;
 
+/**
+ * 角色表，存储角色信息(BaseRole)表控制层
+ *
+ * @author makejava
+ * @since 2021-03-12 18:25:09
+ */
 @RestController
-@RequestMapping(value = "/role", method = RequestMethod.POST)
+@RequestMapping("baseRole")
 public class BaseRoleController {
-
-    @Autowired
+    /**
+     * 服务对象
+     */
+    @Resource
     private BaseRoleService baseRoleService;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseEntity<?> addRole(HttpServletRequest request,
-                                     BaseRole baseRole) {
-        return null;
-    }
-
-    @RequestMapping(value = "/del", method = RequestMethod.POST)
-    public ResponseEntity<?> delRole(HttpServletRequest request,
-                                     Long userId) {
-        return null;
-    }
-
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ResponseEntity<?> updateRole(HttpServletRequest request,
-                                        BaseRole baseRole) throws Exception{
-        baseRole.setCreate_time(null);
-        baseRole.setCreate_user(null);
-        baseRole.setUpdate_time(new Date());
-        baseRole.setUpdate_user(SecurityTool.getUser().getId());
-        Boolean result = baseRoleService.updateBySelective(baseRole);
-        if (result) {
-            return new ResponseEntity<>();
-        } else {
-            return null;
-        }
-    }
-
-    @RequestMapping(value = "/get-list", method = RequestMethod.POST)
-    public ResponseEntity<?> getRole(HttpServletRequest request,
-                                     BaseRole baseRole,
-                                     Pager pager) {
-        pager = baseRoleService.getRoleList(baseRole, pager);
-        return new ResponseEntity<>(200, true, "", pager);
-    }
-
-    @RequestMapping(value = "/check-code", method = RequestMethod.POST)
-    public ResponseEntity<?> checkCode(HttpServletRequest request,
-                                       String code) {
-        if (baseRoleService.selectRoleByCode(code) == null)
-            return new ResponseEntity<>(1500, false, "编码重复，请重新输入", null);
-        else
-            return new ResponseEntity<>(200, true, "编码可用", null);
+    /**
+     * 通过主键查询单条数据
+     *
+     * @param id 主键
+     * @return 单条数据
+     */
+    @GetMapping("selectOne")
+    public BaseRole selectOne(Long id) {
+        return this.baseRoleService.queryById(id);
     }
 
 }

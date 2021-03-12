@@ -1,29 +1,61 @@
 package com.chlang.user_role_system.entity;
 
 import java.util.Date;
+import java.io.Serializable;
 
-public class BaseMenu {
+/**
+ * 菜单表，存储菜单项和菜单url(BaseMenu)实体类
+ *
+ * @author makejava
+ * @since 2021-03-12 18:20:27
+ */
+public class BaseMenu implements Serializable {
+    private static final long serialVersionUID = -46785251462564970L;
+    /**
+     * ord
+     */
     private Long ord;
-
+    /**
+     * 编码
+     */
     private String code;
-
-    private String menu_name;
-
+    /**
+     * 菜单名称
+     */
+    private String menuName;
+    /**
+     * 菜单深度
+     */
     private Integer deep;
-
+    /**
+     * 状态（0--正常，1--停用）
+     */
     private Integer status;
-
-    private Integer is_end_node;
-
-    private String menu_url;
-
+    /**
+     * 是否叶子节点（1--是，0不是）
+     */
+    private Integer isEndNode;
+    /**
+     * 菜单url
+     */
+    private String menuUrl;
+    /**
+     * 创建人
+     */
     private Long creater;
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+    /**
+     * 修改人
+     */
+    private Long updateUser;
+    /**
+     * 修改时间
+     */
+    private Date updateTime;
 
-    private Date create_time;
-
-    private Long update_user;
-
-    private Date update_time;
 
     public Long getOrd() {
         return ord;
@@ -38,15 +70,15 @@ public class BaseMenu {
     }
 
     public void setCode(String code) {
-        this.code = code == null ? null : code.trim();
+        this.code = code;
     }
 
-    public String getMenu_name() {
-        return menu_name;
+    public String getMenuName() {
+        return menuName;
     }
 
-    public void setMenu_name(String menu_name) {
-        this.menu_name = menu_name == null ? null : menu_name.trim();
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
     }
 
     public Integer getDeep() {
@@ -65,20 +97,20 @@ public class BaseMenu {
         this.status = status;
     }
 
-    public Integer getIs_end_node() {
-        return is_end_node;
+    public Integer getIsEndNode() {
+        return isEndNode;
     }
 
-    public void setIs_end_node(Integer is_end_node) {
-        this.is_end_node = is_end_node;
+    public void setIsEndNode(Integer isEndNode) {
+        this.isEndNode = isEndNode;
     }
 
-    public String getMenu_url() {
-        return menu_url;
+    public String getMenuUrl() {
+        return menuUrl;
     }
 
-    public void setMenu_url(String menu_url) {
-        this.menu_url = menu_url == null ? null : menu_url.trim();
+    public void setMenuUrl(String menuUrl) {
+        this.menuUrl = menuUrl;
     }
 
     public Long getCreater() {
@@ -89,27 +121,28 @@ public class BaseMenu {
         this.creater = creater;
     }
 
-    public Date getCreate_time() {
-        return create_time;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Long getUpdate_user() {
-        return update_user;
+    public Long getUpdateUser() {
+        return updateUser;
     }
 
-    public void setUpdate_user(Long update_user) {
-        this.update_user = update_user;
+    public void setUpdateUser(Long updateUser) {
+        this.updateUser = updateUser;
     }
 
-    public Date getUpdate_time() {
-        return update_time;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdate_time(Date update_time) {
-        this.update_time = update_time;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
+
 }

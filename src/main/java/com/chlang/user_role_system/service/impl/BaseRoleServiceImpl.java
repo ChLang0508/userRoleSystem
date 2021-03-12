@@ -1,56 +1,79 @@
 package com.chlang.user_role_system.service.impl;
 
-import com.chlang.user_role_system.dao.BaseRoleMapper;
 import com.chlang.user_role_system.entity.BaseRole;
+import com.chlang.user_role_system.dao.BaseRoleDao;
 import com.chlang.user_role_system.service.BaseRoleService;
-import com.chlang.user_role_system.tool.Pager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
-@Service
-@Transactional(rollbackFor = Exception.class)
+/**
+ * 角色表，存储角色信息(BaseRole)表服务实现类
+ *
+ * @author makejava
+ * @since 2021-03-12 18:25:08
+ */
+@Service("baseRoleService")
 public class BaseRoleServiceImpl implements BaseRoleService {
-    @Autowired
-    private BaseRoleMapper baseRoleMapper;
+    @Resource
+    private BaseRoleDao baseRoleDao;
 
-
+    /**
+     * 通过ID查询单条数据
+     *
+     * @param ord 主键
+     * @return 实例对象
+     */
     @Override
-    public BaseRole selectRoleByCode(String code) {
-        return baseRoleMapper.selectByCode(code);
+    public BaseRole queryById(Long ord) {
+        return this.baseRoleDao.queryById(ord);
     }
 
+    /**
+     * 查询多条数据
+     *
+     * @param offset 查询起始位置
+     * @param limit  查询条数
+     * @return 对象列表
+     */
     @Override
-    public Boolean updateBySelective(BaseRole baseRole) throws Exception {
-        return baseRoleMapper.updateByPrimaryKeySelective(baseRole) == 1;
+    public List<BaseRole> queryAllByLimit(int offset, int limit) {
+        return this.baseRoleDao.queryAllByLimit(offset, limit);
     }
 
+    /**
+     * 新增数据
+     *
+     * @param baseRole 实例对象
+     * @return 实例对象
+     */
     @Override
-    public Boolean insertRole(BaseRole baseRole) throws Exception {
-        if (baseRoleMapper.selectByCode(baseRole.getCode()) != null) {
-            throw new Exception("编码重复，请重新填写编码");
-        }
-        return baseRoleMapper.insertSelective(baseRole) == 1;
+    public BaseRole insert(BaseRole baseRole) {
+        this.baseRoleDao.insert(baseRole);
+        return baseRole;
     }
 
+    /**
+     * 修改数据
+     *
+     * @param baseRole 实例对象
+     * @return 实例对象
+     */
     @Override
-    public BaseRole getRoleByPK(Long roleID) {
-        return baseRoleMapper.selectByPrimaryKey(roleID);
+    public BaseRole update(BaseRole baseRole) {
+        this.baseRoleDao.update(baseRole);
+        return this.queryById(baseRole.getOrd());
     }
 
+    /**
+     * 通过主键删除数据
+     *
+     * @param ord 主键
+     * @return 是否成功
+     */
     @Override
-    public Boolean delRole(Long roleID) {
-        return baseRoleMapper.deleteByPrimaryKey(roleID) == 1;
-    }
-
-    @Override
-    public Pager getRoleList(BaseRole role, Pager pager) {
-        List<BaseRole> roleList = baseRoleMapper.selectList(role, pager);
-        int count = baseRoleMapper.selectListCount(role);
-        pager.setList(roleList);
-        pager.setTotalRow(count);
-        return pager;
+    public boolean deleteById(Long ord) {
+        return this.baseRoleDao.deleteById(ord) > 0;
     }
 }

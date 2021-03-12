@@ -13,4 +13,4 @@ logging:
     root: info
 
 mybatis-plus:
-  config-location: classpath:mapper/*Mapper.xml
+  config-location: classpath:mapper/*Dao.xml

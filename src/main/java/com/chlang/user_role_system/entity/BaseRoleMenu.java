@@ -1,21 +1,27 @@
 package com.chlang.user_role_system.entity;
 
 import java.util.Date;
+import java.io.Serializable;
 
-public class BaseRoleMenu {
+/**
+ * 角色菜单表,这张表里有即为有权限(BaseRoleMenu)实体类
+ *
+ * @author makejava
+ * @since 2021-03-12 18:25:41
+ */
+public class BaseRoleMenu implements Serializable {
+    private static final long serialVersionUID = -44864066812368494L;
+
     private Long ord;
 
-    private Long role_id;
+    private Long roleId;
 
-    private String roleName;
-
-    private String menuUrl;
-
-    private Long menu_id;
+    private Long menuId;
 
     private Long creater;
 
-    private Date create_time;
+    private Date createTime;
+
 
     public Long getOrd() {
         return ord;
@@ -25,20 +31,20 @@ public class BaseRoleMenu {
         this.ord = ord;
     }
 
-    public Long getRole_id() {
-        return role_id;
+    public Long getRoleId() {
+        return roleId;
     }
 
-    public void setRole_id(Long role_id) {
-        this.role_id = role_id;
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
-    public Long getMenu_id() {
-        return menu_id;
+    public Long getMenuId() {
+        return menuId;
     }
 
-    public void setMenu_id(Long menu_id) {
-        this.menu_id = menu_id;
+    public void setMenuId(Long menuId) {
+        this.menuId = menuId;
     }
 
     public Long getCreater() {
@@ -49,27 +55,12 @@ public class BaseRoleMenu {
         this.creater = creater;
     }
 
-    public Date getCreate_time() {
-        return create_time;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public String getMenuUrl() {
-        return menuUrl;
-    }
-
-    public void setMenuUrl(String menuUrl) {
-        this.menuUrl = menuUrl;
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
 }

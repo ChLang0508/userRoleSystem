@@ -1,17 +1,27 @@
 package com.chlang.user_role_system.entity;
 
 import java.util.Date;
+import java.io.Serializable;
 
-public class BaseUserRole {
+/**
+ * 用户角色表(BaseUserRole)实体类
+ *
+ * @author makejava
+ * @since 2021-03-12 18:28:45
+ */
+public class BaseUserRole implements Serializable {
+    private static final long serialVersionUID = -11592866428098907L;
+
     private Long ord;
 
-    private Long user_id;
+    private Long userId;
 
-    private Long role_id;
+    private Long roleId;
 
     private Long creater;
 
-    private Date create_time;
+    private Date createTime;
+
 
     public Long getOrd() {
         return ord;
@@ -21,20 +31,20 @@ public class BaseUserRole {
         this.ord = ord;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public Long getRole_id() {
-        return role_id;
+    public Long getRoleId() {
+        return roleId;
     }
 
-    public void setRole_id(Long role_id) {
-        this.role_id = role_id;
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
     public Long getCreater() {
@@ -45,11 +55,12 @@ public class BaseUserRole {
         this.creater = creater;
     }
 
-    public Date getCreate_time() {
-        return create_time;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
+
 }

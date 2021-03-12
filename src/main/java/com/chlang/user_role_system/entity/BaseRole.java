@@ -3,25 +3,53 @@ package com.chlang.user_role_system.entity;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Date;
+import java.io.Serializable;
 
-public class BaseRole implements GrantedAuthority {
+/**
+ * 角色表，存储角色信息(BaseRole)实体类
+ *
+ * @author makejava
+ * @since 2021-03-12 18:25:06
+ */
+public class BaseRole implements Serializable, GrantedAuthority {
+    private static final long serialVersionUID = 535546087911894080L;
+    /**
+     * id
+     */
     private Long ord;
-
+    /**
+     * 编码
+     */
     private String code;
-
-    private String role_name;
-
+    /**
+     * 角色名
+     */
+    private String roleName;
+    /**
+     * 状态（0--正常，1--停用）
+     */
     private Integer status;
-
+    /**
+     * 排序
+     */
     private Integer sort;
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+    /**
+     * 创建人
+     */
+    private Long createUser;
+    /**
+     * 修改时间
+     */
+    private Date updateTime;
+    /**
+     * 修改人
+     */
+    private Long updateUser;
 
-    private Date create_time;
-
-    private Long create_user;
-
-    private Date update_time;
-
-    private Long update_user;
 
     public Long getOrd() {
         return ord;
@@ -36,15 +64,15 @@ public class BaseRole implements GrantedAuthority {
     }
 
     public void setCode(String code) {
-        this.code = code == null ? null : code.trim();
+        this.code = code;
     }
 
-    public String getRole_name() {
-        return role_name;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRole_name(String role_name) {
-        this.role_name = role_name == null ? null : role_name.trim();
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public Integer getStatus() {
@@ -63,40 +91,40 @@ public class BaseRole implements GrantedAuthority {
         this.sort = sort;
     }
 
-    public Date getCreate_time() {
-        return create_time;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Long getCreate_user() {
-        return create_user;
+    public Long getCreateUser() {
+        return createUser;
     }
 
-    public void setCreate_user(Long create_user) {
-        this.create_user = create_user;
+    public void setCreateUser(Long createUser) {
+        this.createUser = createUser;
     }
 
-    public Date getUpdate_time() {
-        return update_time;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdate_time(Date update_time) {
-        this.update_time = update_time;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
-    public Long getUpdate_user() {
-        return update_user;
+    public Long getUpdateUser() {
+        return updateUser;
     }
 
-    public void setUpdate_user(Long update_user) {
-        this.update_user = update_user;
+    public void setUpdateUser(Long updateUser) {
+        this.updateUser = updateUser;
     }
 
     @Override
     public String getAuthority() {
-        return role_name;
+        return roleName;
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.jinxiang.user_role_system.dao")
+@MapperScan("com.chlang.user_role_system.dao")
 public class UserRoleSystemApplication {
 
     public static void main(String[] args) {

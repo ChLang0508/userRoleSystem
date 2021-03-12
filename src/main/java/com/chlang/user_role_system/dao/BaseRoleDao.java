@@ -2,6 +2,7 @@ package com.chlang.user_role_system.dao;
 
 import com.chlang.user_role_system.entity.BaseRole;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @author makejava
  * @since 2021-03-12 18:25:07
  */
+@Repository
 public interface BaseRoleDao {
 
     /**
@@ -78,6 +80,8 @@ public interface BaseRoleDao {
      * @return 影响行数
      */
     int deleteById(Long ord);
+
+    List<BaseRole> selectByUserId(@Param("userId") Long userId);
 
 }
 

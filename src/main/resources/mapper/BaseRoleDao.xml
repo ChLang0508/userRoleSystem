@@ -149,5 +149,11 @@
         where ord = #{ord}
     </delete>
 
+    <select id="selectByUserId" resultMap="BaseRoleMap">
+        select * from base_role
+                          inner join base_user_role bur on base_role.ord = bur.role_id
+        where bur.user_id = #{userId,jdbcType=BIGINT}
+    </select>
+
 </mapper>
 

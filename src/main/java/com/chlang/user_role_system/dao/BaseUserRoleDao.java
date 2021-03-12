@@ -2,6 +2,7 @@ package com.chlang.user_role_system.dao;
 
 import com.chlang.user_role_system.entity.BaseUserRole;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @author makejava
  * @since 2021-03-12 18:28:47
  */
+@Repository
 public interface BaseUserRoleDao {
 
     /**

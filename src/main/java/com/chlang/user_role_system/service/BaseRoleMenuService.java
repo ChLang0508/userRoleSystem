@@ -3,6 +3,7 @@ package com.chlang.user_role_system.service;
 import com.chlang.user_role_system.entity.BaseRoleMenu;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 角色菜单表,这张表里有即为有权限(BaseRoleMenu)表服务接口
@@ -18,7 +19,7 @@ public interface BaseRoleMenuService {
      * @param ord 主键
      * @return 实例对象
      */
-    BaseRoleMenu queryById(Long ord);
+//    BaseRoleMenu queryById(Long ord);
 
     /**
      * 查询多条数据
@@ -27,7 +28,7 @@ public interface BaseRoleMenuService {
      * @param limit  查询条数
      * @return 对象列表
      */
-    List<BaseRoleMenu> queryAllByLimit(int offset, int limit);
+//    List<BaseRoleMenu> queryAllByLimit(int offset, int limit);
 
     /**
      * 新增数据
@@ -35,7 +36,7 @@ public interface BaseRoleMenuService {
      * @param baseRoleMenu 实例对象
      * @return 实例对象
      */
-    BaseRoleMenu insert(BaseRoleMenu baseRoleMenu);
+//    BaseRoleMenu insert(BaseRoleMenu baseRoleMenu);
 
     /**
      * 修改数据
@@ -43,7 +44,7 @@ public interface BaseRoleMenuService {
      * @param baseRoleMenu 实例对象
      * @return 实例对象
      */
-    BaseRoleMenu update(BaseRoleMenu baseRoleMenu);
+//    BaseRoleMenu update(BaseRoleMenu baseRoleMenu);
 
     /**
      * 通过主键删除数据
@@ -51,6 +52,7 @@ public interface BaseRoleMenuService {
      * @param ord 主键
      * @return 是否成功
      */
-    boolean deleteById(Long ord);
+//    boolean deleteById(Long ord);
 
+    Map<String,String> findAll();
 }

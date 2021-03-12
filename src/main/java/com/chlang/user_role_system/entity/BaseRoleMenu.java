@@ -16,12 +16,31 @@ public class BaseRoleMenu implements Serializable {
 
     private Long roleId;
 
+    private String menuUrl;
+
+    private String roleName;
+
     private Long menuId;
 
     private Long creater;
 
     private Date createTime;
 
+    public String getMenuUrl() {
+        return menuUrl;
+    }
+
+    public void setMenuUrl(String menuUrl) {
+        this.menuUrl = menuUrl;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 
     public Long getOrd() {
         return ord;

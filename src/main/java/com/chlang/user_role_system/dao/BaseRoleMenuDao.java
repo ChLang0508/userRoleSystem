@@ -2,6 +2,7 @@ package com.chlang.user_role_system.dao;
 
 import com.chlang.user_role_system.entity.BaseRoleMenu;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @author makejava
  * @since 2021-03-12 18:25:42
  */
+@Repository
 public interface BaseRoleMenuDao {
 
     /**
@@ -78,6 +80,8 @@ public interface BaseRoleMenuDao {
      * @return 影响行数
      */
     int deleteById(Long ord);
+
+    List<BaseRoleMenu> findAll();
 
 }
 

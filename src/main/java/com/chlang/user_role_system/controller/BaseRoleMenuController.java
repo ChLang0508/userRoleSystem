@@ -27,9 +27,9 @@ public class BaseRoleMenuController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("selectOne")
-    public BaseRoleMenu selectOne(Long id) {
-        return this.baseRoleMenuService.queryById(id);
-    }
+//    @GetMapping("selectOne")
+//    public BaseRoleMenu selectOne(Long id) {
+//        return this.baseRoleMenuService.queryById(id);
+//    }
 
 }

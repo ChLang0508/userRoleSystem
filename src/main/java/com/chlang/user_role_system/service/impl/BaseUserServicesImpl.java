@@ -1,6 +1,6 @@
 package com.chlang.user_role_system.service.impl;
 
-import com.chlang.user_role_system.dao.BaseRoleMapper;
+import com.chlang.user_role_system.dao.BaseRoleDao;
 import com.chlang.user_role_system.dao.BaseUserMapper;
 import com.chlang.user_role_system.entity.BaseRole;
 import com.chlang.user_role_system.entity.BaseUser;
@@ -21,7 +21,7 @@ public class BaseUserServicesImpl implements BaseUserServices {
     @Autowired
     private BaseUserMapper baseUserMapper;
     @Autowired
-    private BaseRoleMapper baseRoleMapper;
+    private BaseRoleDao baseRoleMapper;
 
 
     @Override
